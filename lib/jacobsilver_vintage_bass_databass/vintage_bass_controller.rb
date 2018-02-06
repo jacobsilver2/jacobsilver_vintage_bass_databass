@@ -53,7 +53,6 @@ class VintageBassController
       models.models.each.with_index(1) {|model, i|
          puts "#{i}. #{model.name} "
       }
-      # modelI = "" 
       input = gets.strip
       if input == "exit"
          goodbye

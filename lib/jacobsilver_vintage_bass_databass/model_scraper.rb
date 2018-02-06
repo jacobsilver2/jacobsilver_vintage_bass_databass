@@ -12,13 +12,42 @@ class ModelScraper
    end
 
    def scrape
+      models = []
       case @brand.name
          when "Rickenbacker"
             models = @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[1]/ul').text.gsub(/\s+/, " ").strip.split(" ") 
-         when "Fender"
-            models = @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[2]/ul').text.gsub(/\s+/, " ").strip.split(" ") 
-         when "Gibson"
-            models = @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul').text.gsub(/\s+/, " ").strip.split(" ") 
+            when "Fender"
+               models = @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[2]/ul').text.gsub(/\s+/, " ").strip.split(" ") 
+               when "Gibson"
+                  # Gibson models must be added manually because of the submenus and whitespace
+                  # Add Thunderbird models manually
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[1]/ul/li[1]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[1]/ul/li[2]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[1]/ul/li[3]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[1]/ul/li[4]/a').text
+                  # Add EB models
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[1]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[2]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[3]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[4]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[5]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[6]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[7]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[8]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[9]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[10]/a').text
+                  # Add Grabber models
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[3]/ul/li[1]/a').text
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[3]/ul/li[2]/a').text
+                  # Add Ripper model
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[4]/a').text
+                  # Add Les Paul model
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[5]/a').text
+                  # Add V Bass model
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[6]/a').text
+                  # Add RD models
+                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[7]/ul/li[1]/a').text
+                  # models = @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul').text.gsub(/\s+/, " ").strip.split(" ") 
          when "Ampeg"
             models = @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[4]/ul').text.gsub(/\s+/, " ").strip.split(" ") 
          when "Musicman"
