@@ -7,8 +7,6 @@ class ModelScraper
       @brand = Brand.new
       @brand.name = brand
       @doc = Nokogiri::HTML(open("http://vintagebassworld.com/index.php#"))
-      # scrape
-      # scrape_instruments
    end
 
    def scrape
@@ -21,33 +19,45 @@ class ModelScraper
                when "Gibson"
                   # Gibson models must be added manually because of the submenus and whitespace
                   # Add Thunderbird models manually
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[1]/ul/li[1]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[1]/ul/li[2]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[1]/ul/li[3]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[1]/ul/li[4]/a').text
+                  modelCount = 1
+                  while modelCount <= 4
+                     myxPath = "//*[@id=\'menu\']/ul/li[3]/ul/li[3]/ul/li[1]/ul/li[#{modelCount}]/a"
+                     models << @doc.xpath("#{myxPath}").text
+                     modelCount += 1
+                  end
                   # Add EB models
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[1]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[2]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[3]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[4]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[5]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[6]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[7]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[8]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[9]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[10]/a').text
+                  modelCount = 1
+                  while modelCount <= 10
+                     myxPath = "//*[@id=\'menu\']/ul/li[3]/ul/li[3]/ul/li[2]/ul/li[#{modelCount}]/a"
+                     models << @doc.xpath("#{myxPath}").text
+                     modelCount += 1
+                  end
+
                   # Add Grabber models
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[3]/ul/li[1]/a').text
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[3]/ul/li[2]/a').text
-                  # Add Ripper model
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[4]/a').text
-                  # Add Les Paul model
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[5]/a').text
-                  # Add V Bass model
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[6]/a').text
+                  modelCount = 1
+                     while modelCount <=2
+                        myxPath = "//*[@id=\'menu\']/ul/li[3]/ul/li[3]/ul/li[3]/ul/li[#{modelCount}]/a"
+                        models << @doc.xpath("#{myxPath}").text
+                        modelCount += 1
+                     end
+
+                  # Add Ripper model, Les Paul, and V Bass models
+                  modelCount = 4
+                     while modelCount <= 6
+                        myxPath = "//*[@id=\'menu\']/ul/li[3]/ul/li[3]/ul/li[#{modelCount}]/a"
+                        models << @doc.xpath("#{myxPath}").text
+                        modelCount += 1
+                     end
+
                   # Add RD models
-                  models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[7]/ul/li[1]/a').text
-                  # models = @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul').text.gsub(/\s+/, " ").strip.split(" ") 
+                  modelCount = 1
+                     while modelCount <= 2
+                        myxPath = "//*[@id=\'menu\']/ul/li[3]/ul/li[3]/ul/li[7]/ul/li[1]/a"
+                        models << @doc.xpath("#{myxPath}").text
+                        modelCount += 1
+                     end
+
+
          when "Ampeg"
             #Ampeg models must be added a different way to account for whitespace issues.
             ampegModels = 1
