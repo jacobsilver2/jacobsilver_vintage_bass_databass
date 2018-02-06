@@ -1,8 +1,6 @@
 # JacobsilverVintageBassDatabass
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jacobsilver_vintage_bass_databass`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome the Vintage Bass Databass gem! This ruby gem will allow you, the user, to explore some of the most sought-after electric basses ever made. 
 
 ## Installation
 
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+run ```bin/vintage-bass-cli``` to get started.  From there, choose your desired brand of instrument.  You will then be given a list of models of whatever brand you chose.  After you choose a model, the app will list every year that model was manufactured.  Choose the year you are interested in, and the app will display details for that particular year that your chosen model was manufactured.
 
 ## Development
 
