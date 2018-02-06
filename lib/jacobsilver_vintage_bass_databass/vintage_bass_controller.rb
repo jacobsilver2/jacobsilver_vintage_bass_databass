@@ -72,7 +72,14 @@ class VintageBassController
    end
 
    def goodbye
-      puts "Now you know!!  Go practice.  Get outta here!"
+      puts "Would you like to explore the databass again? (y/n)"
+      input = gets.strip
+      case input
+         when "y"
+            VintageBassController.new.call
+         when "n"
+            puts "Go practice.  Get outta here!"
+         end
    end
 
 

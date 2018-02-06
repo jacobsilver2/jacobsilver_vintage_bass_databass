@@ -1,6 +1,7 @@
 class InvalidType < StandardError; end
 class Brand
    attr_accessor :name, :models
+   
 
    def initialize
       @models = []
