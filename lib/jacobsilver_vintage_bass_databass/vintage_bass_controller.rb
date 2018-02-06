@@ -1,7 +1,7 @@
 class VintageBassController
    def initialize
       puts "Welcome to the vintage bass databass!"
-      puts "Choose your brand (type a number)"
+      puts "Choose your brand (type a number), or type exit at any time to quit."
    end
 
    def call
@@ -27,7 +27,7 @@ class VintageBassController
       puts "4. Ampeg"
       puts "5. Musicman"
       brand = ""
-      input = gets.strip
+      input = gets.downcase.strip
       case input
          when "1"
             brand = "Rickenbacker"
@@ -39,6 +39,11 @@ class VintageBassController
             brand = "Ampeg"
          when "5"
             brand = "Musicman"
+         when "exit"
+            goodbye
+         else
+            puts "Not sure what you meant.  Please try again"
+            brandChooser
       end
       brand
    end
@@ -50,21 +55,22 @@ class VintageBassController
       }
       # modelI = "" 
       input = gets.strip
-      # puts "You chose the #{@brand} #{models.models[input.to_i - 1].name}"
-
-
-
-      #       @models.models.each.with_index(1) {|model,i|
-      #    puts "#{i}. #{model.name} "
-      # }
-      models.models[input.to_i - 1].name
+      if input == "exit"
+         goodbye
+      else
+        models.models[input.to_i - 1].name
+      end
    end
 
    def yearChooser
       @instruments = @b.scrape_instruments
       @instruments.models.select{|m|m.name == @modelChoice}[0].instruments.each.with_index(1) {|inst, i| puts "#{i}. #{inst.name}"}
       input = gets.strip
-      @instruments.models.select{|m|m.name == @modelChoice}[0].instruments[input.to_i - 1].name
+      if input == "exit"
+         goodbye
+      else
+         @instruments.models.select{|m|m.name == @modelChoice}[0].instruments[input.to_i - 1].name
+      end
    end
 
    def get_Description
@@ -79,6 +85,7 @@ class VintageBassController
             VintageBassController.new.call
          when "n"
             puts "Go practice.  Get outta here!"
+            exit
          end
    end
 
