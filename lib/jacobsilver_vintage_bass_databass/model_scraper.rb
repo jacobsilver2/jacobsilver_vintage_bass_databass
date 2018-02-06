@@ -49,7 +49,13 @@ class ModelScraper
                   models << @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul/li[7]/ul/li[1]/a').text
                   # models = @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[3]/ul').text.gsub(/\s+/, " ").strip.split(" ") 
          when "Ampeg"
-            models = @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[4]/ul').text.gsub(/\s+/, " ").strip.split(" ") 
+            #Ampeg models must be added a different way to account for whitespace issues.
+            ampegModels = 1
+            while ampegModels <= 8
+               myxPath = "//*[@id=\'menu\']/ul/li[3]/ul/li[4]/ul/li[#{ampegModels}]/a"
+               models << @doc.xpath("#{myxPath}").text
+               ampegModels += 1
+            end
          when "Musicman"
             models = @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[5]/ul').text.gsub(/\s+/, " ").strip.split(" ") 
          end
