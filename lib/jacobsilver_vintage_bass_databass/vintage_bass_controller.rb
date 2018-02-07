@@ -12,11 +12,10 @@ class VintageBassController
       modelChoice = modelChooser(b)
       puts "You chose the #{brand} #{modelChoice}."
       puts "Which year of the #{brand} #{modelChoice} are you interested in knowing more about?"
-      binding.pry
       yearChoice = yearChooser(b, modelChoice)
+      # binding.pry
       puts "You chose the #{yearChoice} #{brand} #{modelChoice}"
-      binding.pry
-      description = get_Description
+      description = get_Description(b, modelChoice, yearChoice)
       puts "\n\n\n #{description}\n\n\n"
       goodbye
  
@@ -65,10 +64,10 @@ class VintageBassController
 
    def yearChooser(modelScraperInstance, modelChoice)
       #call scrape_instruments to add instruments (years) to Models
-      @instruments = @b.scrape_instruments(@modelChoice)
+      instruments = modelScraperInstance.scrape_instruments(modelChoice)
 
       #display all the instruments (years)
-      @instruments.models.select{|m|m.name == @modelChoice}[0].instruments.each.with_index(1) {|inst, i| puts "#{i}. #{inst.name}"}
+      instruments.models.select{|m|m.name == modelChoice}[0].instruments.each.with_index(1) {|inst, i| puts "#{i}. #{inst.name}"}
 
       #get user input
       input = gets.strip
@@ -76,14 +75,21 @@ class VintageBassController
          goodbye
       else
         # return the selected instrument (year)
-         @instruments.models.select{|m|m.name == @modelChoice}[0].instruments[input.to_i - 1].name
+         instruments.models.select{|m|m.name == modelChoice}[0].instruments[input.to_i - 1].name
       end
    end
 
-   def get_Description
+   def get_Description(modelScraperInstance, modelChoice, yearChoice)
         #call the scrape method to return the description
-        @b.scrape_description(@modelChoice, @yearChoice)
-       @instruments.models.select{|m|m.name == @modelChoice}[0].instruments.select{|inst| inst.name == @yearChoice}[0].description
+        desc = modelScraperInstance.scrape_description(modelChoice, yearChoice)
+
+        #what is this doing?
+        #going through the instruments of models of brand, selecting the model and returning the description
+        #how can we refactor it to not use @instruments?
+        #modelScraperInstance contains the description
+
+      #  @instruments.models.select{|m|m.name == modelChoice}[0].instruments.select{|inst| inst.name == yearChoice}[0].description
+      desc
    end
 
    def goodbye

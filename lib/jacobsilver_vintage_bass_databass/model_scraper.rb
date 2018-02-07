@@ -100,6 +100,7 @@ class ModelScraper
       instrumentDoc = Nokogiri::HTML(open("http://vintagebassworld.com/description.php?manufacturer=#{self.brand.name}&product=#{model}&year=#{instrument}"))
       myInst[0].description = instrumentDoc.search(".desc_std").text.delete("\r\n\"")
       myInst[0].description["For photos, click on the links below:"] = ""
+      myInst[0].description
    end
    
 
