@@ -104,7 +104,6 @@ class ModelScraper
 
 
 end
-#       model.add_instrument(i)
 
 
 
