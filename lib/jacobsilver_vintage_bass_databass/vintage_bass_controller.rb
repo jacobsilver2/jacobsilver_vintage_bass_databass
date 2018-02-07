@@ -80,6 +80,7 @@ class VintageBassController
 
    def get_Description
         #call the scrape method to return the description
+        @b.scrape_description(@modelChoice, @yearChoice)
        @instruments.models.select{|m|m.name == @modelChoice}[0].instruments.select{|inst| inst.name == @yearChoice}[0].description
    end
 

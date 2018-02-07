@@ -92,8 +92,13 @@ class ModelScraper
    end
 
    def scrape_description(model, instrument)
-      # get the model
-      myModel = myModel = @brand.models.select {|m| m.name == model}
+      get the model
+      myModel = @brand.models.select {|m| m.name == model}
+      myModel[0].instruments.select{|i| i.name == instrument}
+      # get the Nokogiri XML data
+      instrumentDoc = Nokogiri::HTML(open("http://vintagebassworld.com/description.php?manufacturer=#{self.brand.name}&product=#{model}&year=#{instrument}"))
+      desc = 
+
    end
    
 
