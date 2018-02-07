@@ -97,7 +97,7 @@ class VintageBassController
       input = gets.strip
       case input
          when "y"
-            VintageBassController.new.call
+            call
          when "n"
             puts "Go practice.  Get outta here!"
             exit
