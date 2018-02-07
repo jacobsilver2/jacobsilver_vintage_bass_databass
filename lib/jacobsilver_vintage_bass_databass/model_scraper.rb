@@ -69,6 +69,7 @@ class ModelScraper
          when "Musicman"
             models = @doc.xpath('//*[@id="menu"]/ul/li[3]/ul/li[5]/ul').text.gsub(/\s+/, " ").strip.split(" ") 
          end
+         # create new Model objects for each item in the models array
          models.each { |model| 
             m = Model.new(model)
             @brand.add_model(m)
@@ -86,7 +87,7 @@ class ModelScraper
       #make a new Instrument and add it to myModel 
       instruments.each { |instrument| 
             newInst = Instrument.new(instrument)
-            myModel[0].instruments << newInst
+            myModel[0].add_instrument(newInst) 
       }
       @brand
    end
