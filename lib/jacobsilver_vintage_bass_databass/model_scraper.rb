@@ -76,20 +76,26 @@ class ModelScraper
          @brand
    end
 
-   def scrape_instruments
-      @brand.models.each { |model|
-            instrumentDoc = Nokogiri::HTML(open("http://vintagebassworld.com/description.php?manufacturer=#{self.brand.name}&product=#{model.name}&year=0"))
-            instruments = instrumentDoc.search(".clearfix ul").text.gsub(/\s+/, " ").strip.split(" ")
-            instruments.each {|instrument|
-                  i = Instrument.new(instrument)
-                  instrumentDescDoc = Nokogiri::HTML(open("http://vintagebassworld.com/description.php?manufacturer=#{self.brand.name}&product=#{model.name}&year=#{instrument}"))
-                  i.description = instrumentDescDoc.search(".desc_std").text.delete("\r\n\"")
-                  i.description["For photos, click on the links below:"] = ""
-                  model.add_instrument(i)
-            }
+   def scrape_instruments(model)
+      #select only the model we want to add to
+      myModel = @brand.models.select {|m| m.name == model}
+      #get Nokogiri XML data for that model
+      instrumentDoc = Nokogiri::HTML(open("http://vintagebassworld.com/description.php?manufacturer=#{self.brand.name}&product=#{model}&year=0"))
+      #get an array of years from Nokogiri XML data
+      instruments = instrumentDoc.search(".clearfix ul").text.gsub(/\s+/, " ").strip.split(" ")
+      #make a new Instrument and add it to myModel 
+      instruments.each { |instrument| 
+            newInst = Instrument.new(instrument)
+            myModel[0].instruments << newInst
       }
       @brand
    end
+
+   def scrape_description(model, instrument)
+      # get the model
+      myModel = myModel = @brand.models.select {|m| m.name == model}
+   end
+   
 
 
 end
