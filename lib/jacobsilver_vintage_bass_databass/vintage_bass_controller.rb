@@ -5,15 +5,17 @@ class VintageBassController
    end
 
    def call
-      @brand = brandChooser
-      puts "You chose #{@brand}"
-      @b = ModelScraper.new(@brand)
-      puts "What model of #{@brand} would you like to know more about?"
-      @modelChoice = modelChooser
-      puts "You chose the #{@brand} #{@modelChoice}."
-      puts "Which year of the #{@brand} #{@modelChoice} are you interested in knowing more about?"
-      @yearChoice = yearChooser
-      puts "You chose the #{@yearChoice} #{@brand} #{@modelChoice}"
+      brand = brandChooser
+      puts "You chose #{brand}"
+      b = ModelScraper.new(brand)
+      puts "What model of #{brand} would you like to know more about?"
+      modelChoice = modelChooser(b)
+      puts "You chose the #{brand} #{modelChoice}."
+      puts "Which year of the #{brand} #{modelChoice} are you interested in knowing more about?"
+      binding.pry
+      yearChoice = yearChooser(b, modelChoice)
+      puts "You chose the #{yearChoice} #{brand} #{modelChoice}"
+      binding.pry
       description = get_Description
       puts "\n\n\n #{description}\n\n\n"
       goodbye
@@ -48,8 +50,8 @@ class VintageBassController
       brand
    end
 
-   def modelChooser
-      models = @b.scrape
+   def modelChooser(modelScraperInstance)
+      models = modelScraperInstance.scrape
       models.models.each.with_index(1) {|model, i|
          puts "#{i}. #{model.name} "
       }
@@ -61,7 +63,7 @@ class VintageBassController
       end
    end
 
-   def yearChooser
+   def yearChooser(modelScraperInstance, modelChoice)
       #call scrape_instruments to add instruments (years) to Models
       @instruments = @b.scrape_instruments(@modelChoice)
 
